@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Classification</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #e9ecef;
+            color: #343a40;
+        }
+        .container {
+            margin-top: 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            background: white;
+            padding: 30px;
+        }
+        h1 {
+            color: #007bff;
+        }
+        .btn-primary {
+            background-color: #28a745;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #218838;
+        }
+        .img-fluid {
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 2px solid #007bff;
+        }
+        .list-group-item {
+            background-color: #f8f9fa;
+            border: none;
+            color: #495057;
+        }
+        .list-group-item:nth-child(even) {
+            background-color: #f1f1f1;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="text-center">Image Classification</h1>
+    
+    <form action="/upload" method="post" enctype="multipart/form-data" class="text-center">
+        <input type="file" name="file" accept="image/*" required class="form-control-file mb-3">
+        <button type="submit" class="btn btn-primary">Upload & Classify</button>
+    </form>
+    
+    {% if predictions %}
+    <h2 class="mt-5">Predictions:</h2>
+    <img src="{{ filepath }}" alt="Uploaded Image" class="img-fluid">
+    <ul class="list-group mt-3">
+        {% for pred in predictions %}
+            <li class="list-group-item">{{ pred[1] }}: {{ (pred[2] * 100) | round(2) }}%</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
+    <div class="footer">
+        <p>&copy; 2024 Image Classification App. All Rights Reserved.</p>
+    </div>
+</div>
+
+</body>
+</html>
